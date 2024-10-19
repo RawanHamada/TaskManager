@@ -1,6 +1,20 @@
 let tasks = [];
 let taskId = 1;
 
+function loadTasks(){
+    const savedTasks= localStorage.getItem('tasks');
+    if(savedTasks) {
+        tasks =JSON.parse(savedTasks);
+        if (tasks.length > 0) {
+            taskId = tasks[tasks.length - 1].id + 1;
+        }
+    }
+}
+
+function savedTasks(){
+    localStorage.setItem('tasks' , JSON.stringify(tasks));
+}
+
 function showMenu() {
     console.log(`Task Manager Menu:
 1. Add Task
@@ -55,7 +69,7 @@ function addTask() {
         description: descOfTask,
         completed: false
     });
-
+    savedTasks();
     console.log('Task added: "' + descOfTask + '" ');
     showMenu();
 }
@@ -81,6 +95,7 @@ function toggleTaskCompletion() {
     let task = tasks.find(t => t.id === parseInt(taskId));
     if (task) {
         task.completed = !task.completed;
+        savedTasks();
         console.log(`Task "${task.description}" is now marked as ${task.completed ? 'completed' : 'Not complete'}.`);
     } else {
         console.log('Task not found.');
@@ -96,6 +111,7 @@ function editTask() {
     if (task) {
         let newDescription = prompt('Enter the new description:');
         task.description = newDescription;
+        savedTasks();
         console.log(`Task "${taskId}" updated to: "${newDescription}" `);
 
     } else {
@@ -111,6 +127,7 @@ function deleteTask() {
     let taskIndex = tasks.findIndex(t => t.id === parseInt(taskId));
     if (taskIndex !== -1) {
         const delTask = tasks.splice(taskIndex, 1)[0];
+        savedTasks();
         console.log(`Task deleted: "${delTask.description}"`);
     } else {
         console.log('Task not found.');
@@ -134,5 +151,6 @@ function searchTaskByName() {
     showMenu();
 }
 
-// Start lunch
+// Start app
+loadTasks();
 showMenu();
