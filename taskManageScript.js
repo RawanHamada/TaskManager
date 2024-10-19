@@ -96,7 +96,7 @@ function editTask() {
     if (task) {
         let newDescription = prompt('Enter the new description:');
         task.description = newDescription;
-        console.log(`Task "${taskId}" is updated to: "${newDescription}" `);
+        console.log(`Task "${taskId}" updated to: "${newDescription}" `);
 
     } else {
         console.log("Task not found.");
