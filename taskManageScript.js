@@ -56,7 +56,7 @@ function addTask() {
         completed: false
     });
 
-    console.log('Task added : "' + descOfTask + '" ');
+    console.log('Task added: "' + descOfTask + '" ');
     showMenu();
 }
 
@@ -67,7 +67,7 @@ function viewTasks() {
     } else {
         let allTask = "Tasks: \n";
         tasks.forEach(task => {
-            allTask += `${task.id}.${task.description} [${task.completed ? 'Completed' : 'Not Completed'}]\n`;
+            allTask += `${task.id}. ${task.description} [${task.completed ? 'Completed' : 'Not Completed'}]\n`;
         });
         console.log(allTask);
 
@@ -81,7 +81,7 @@ function toggleTaskCompletion() {
     let task = tasks.find(t => t.id === parseInt(taskId));
     if (task) {
         task.completed = !task.completed;
-        console.log(`Task "${task}" is now marked as ${task.completed ? 'completed' : 'Not complete'}.`);
+        console.log(`Task "${task.description}" is now marked as ${task.completed ? 'completed' : 'Not complete'}.`);
     } else {
         console.log('Task not found.');
     }
@@ -111,7 +111,7 @@ function deleteTask() {
     let taskIndex = tasks.findIndex(t => t.id === parseInt(taskId));
     if (taskIndex !== -1) {
         const delTask = tasks.splice(taskIndex, 1)[0];
-        console.log(`Task deleted: ${delTask.description}`);
+        console.log(`Task deleted: "${delTask.description}"`);
     } else {
         console.log('Task not found.');
     }
